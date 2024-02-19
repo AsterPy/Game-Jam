@@ -1,0 +1,141 @@
+#: import NoTransition kivy.uix.screenmanager.NoTransition
+#: import get_color_from_hex kivy.utils.get_color_from_hex
+#:import utils kivy.utils
+<Main>: 
+    BoxLayout:
+        orientation: 'vertical'
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 0.9
+            spacing: 20
+            Image: 
+                id: background
+                size_hint: 1, 0.9
+                source: 'screen.png'
+                allow_stretch: True
+                keep_ratio: False
+            BoxLayout:
+                size_hint: 1, 0.1
+                spacing: 20
+                padding: 20, 0, 20, 20
+                MDLabel:
+                    font_name: "Press Start 2P"
+                    size_hint: 0.2, 1
+                    id: coins
+                    text: '0'
+                    halign: 'center'
+                    canvas.before:
+                        Color:
+                            rgba: 250/255, 200/255, 115/255, 0.20
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [10]
+                        Color:
+                            rgba: 250/255, 180/255, 40/255, 0.60
+                        Line:
+                            width: 3
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+
+                Button:
+                    font_name: "Press Start 2P"
+                    text: 'ЛОМАТИ'
+                    background_color: 0,0,0,0
+                    size_hint: 0.6, 1
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    on_release: app.on_click()
+                    canvas.before:
+                        Color:
+                            rgba: 73/255, 45/255, 12/255, 0.50
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [10]
+                        Color:
+                            rgba: 71/255, 38/255, 0/255, 1
+                        Line:
+                            width: 3
+                            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+    FloatLayout:
+        Button:
+            background_color: 0,0,0,0
+            size_hint: None, None
+            size: 150, 150
+            pos_hint: {'center_x': 0.85, 'center_y': 0.93}
+            on_release: app.change_dragon_image()
+            canvas.before:
+                Color:
+                    rgba: 38/255, 43/255, 55/255, 0.50
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+                Color:
+                    rgba: 32/255, 45/255, 60/255, 1
+                Line:
+                    width: 3
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+            Image:
+                source: 'eye.png'
+                size_hint: None, None
+                size: self.parent.size  
+                pos: self.parent.pos
+       
+
+<CustomButton>:
+    padding: 10, 10 
+    font_name: "Press Start 2P"
+    text: 'далі>>>'
+    background_color: 0,0,0,0
+    size_hint: 1, 0.15
+    pos_hint: {'center_x': 0.5, 'y': 0}
+    on_release: app.on_click()
+    canvas.before:
+        Color:
+            rgba: 25/255, 27/255, 32/255, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10]
+        Color:
+            rgba: 22/255, 24/255, 27/255, 1
+        Line:
+            width: 3
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+
+<CustomBlock1@MDLabel>:
+    background_color: 0,0,0,0
+    size_hint: 1, 0.18
+    pos_hint: {'center_x': 0.5, 'center_y': 1}
+    canvas.before:
+        Color:
+            rgba: 17/255, 17/255, 17/255, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+           
+
+<CustomBlock2@MDLabel>:
+    background_color: 0,0,0,0
+    size_hint: 0.1, 1
+    pos_hint: {'x': 0, 'y': 0}
+    canvas.before:
+        Color:
+            rgba: 17/255, 17/255, 17/255, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+           
+
+<CustomBlock3@MDLabel>:
+    background_color: 0,0,0,0
+    size_hint: 0.1, 1
+    pos_hint: {'x': .9, 'y': 0}
+    canvas.before:
+        Color:
+            rgba: 17/255, 17/255, 17/255, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+           
