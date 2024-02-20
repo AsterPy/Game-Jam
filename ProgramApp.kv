@@ -42,7 +42,7 @@
                     font_name: "Press Start 2P"
                     text: 'ЛОМАТИ'
                     background_color: 0,0,0,0
-                    size_hint: 0.6, 1
+                    size_hint: 0.7, 1
                     pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                     on_release: app.on_click()
                     canvas.before:
@@ -63,7 +63,8 @@
             size_hint: None, None
             size: 150, 150
             pos_hint: {'center_x': 0.85, 'center_y': 0.93}
-            on_release: app.change_dragon_image()
+            opacity: 1 if root.ids.coins.text and int(root.ids.coins.text) >= 442 else 0
+            on_release: app.change_dragon_image() if root.ids.coins.text and int(root.ids.coins.text) >= 442 else None
             canvas.before:
                 Color:
                     rgba: 38/255, 43/255, 55/255, 0.50
@@ -78,6 +79,30 @@
                     rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
             Image:
                 source: 'eye.png'
+                size_hint: None, None
+                size: self.parent.size  
+                pos: self.parent.pos
+        Button:
+            id: perot_button
+            background_color: 0,0,0,0
+            size_hint: None, None
+            size: 150, 150
+            opacity: 0
+            pos_hint: {'center_x': 0.15, 'center_y': 0.93}
+            canvas.before:
+                Color:
+                    rgba: 83/255, 18/255, 18/255, 0.50
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+                Color:
+                    rgba: 110/255, 7/255, 7/255, 1
+                Line:
+                    width: 3
+                    rounded_rectangle: (self.x, self.y, self.width, self.height, 10)
+            Image:
+                source: 'img/perot.png'
                 size_hint: None, None
                 size: self.parent.size  
                 pos: self.parent.pos
