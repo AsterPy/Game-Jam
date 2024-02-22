@@ -2,9 +2,8 @@
 import sqlite3
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivymd.app import MDApp
+from kivy.app import App
 from kivy.core.window import Window
-from kivymd.uix.screen import MDScreen
 from kivy.core.text import LabelBase
 from kivy.clock import Clock
 from kivy.uix.button import Button
@@ -19,7 +18,7 @@ import random
 from random import randint
 
 
-class Main(MDScreen):
+class Main(Screen):
     # Готовна ігрова сторінка
     click_sound = None
     button_clicked = False
@@ -65,7 +64,7 @@ class WelcomeScreen(Screen):
     sound = None
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Builder.load_file('Custom.kv')
+        Builder.load_file('custom.kv')
         # Відтворюємо відео на початковому екрані 
         layout = FloatLayout()
         if WelcomeScreen.player is None:  # Перевіряємо, чи player вже був створений
@@ -101,9 +100,9 @@ class WelcomeScreen(Screen):
                 WelcomeScreen.sound.play()
 
 
-class GameApp(MDApp):
+class GameApp(App):
     title = ""
-    Window.size = (380, 800)
+    # Window.size = (380, 800)
     db_name = "click.db"
     button_state = 0
     perot_button_shown = False
@@ -113,7 +112,7 @@ class GameApp(MDApp):
     parott = True
 
     def build(self):
-        self.theme_cls.theme_style = "Dark"  
+        # self.theme_cls.theme_style = "Dark"  
         sm = ScreenManager()
         sm.add_widget(WelcomeScreen(name='welcome_screen'))  # Додаємо екран вітання перед Main
         sm.add_widget(Main(name='main'))
