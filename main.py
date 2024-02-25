@@ -49,41 +49,22 @@ class Main(Screen):
 class CustomButton(Button):
     pass
 
-class CustomBlock1(Button):
-    pass
-
-class CustomBlock2(Button):
-    pass
-
-class CustomBlock3(Button):
-    pass
-
 class WelcomeScreen(Screen):
     # Початкова сторінка
-    player = None  # Зробимо player статичним атрибутом класу
     sound = None
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Builder.load_file('custom.kv')
-        # Відтворюємо відео на початковому екрані 
-        layout = FloatLayout()
-        if WelcomeScreen.player is None:  # Перевіряємо, чи player вже був створений
-            WelcomeScreen.player = VideoPlayer(source='rigths/video.mp4', state='play', options={'allow_stretch': True})
-            WelcomeScreen.player.state = 'play'
-            WelcomeScreen.player.size_hint = (1, 1)
-            WelcomeScreen.player.pos_hint = {'x': 0, 'y': 0}
-            WelcomeScreen.player.options = {'eos': 'loop'}
-            WelcomeScreen.player.allow_stretch = True
-            WelcomeScreen.player.volume = 0.1
+        self.start = SoundLoader.load('rigths/sounds/start.mp3')
+        self.start.volume = 0.1
+        self.start.play()
+        self.BG = SoundLoader.load('rigths/sounds/BG.mp3')
+        self.BG.volume = 0.1
+        # Відтворюємо дизайн на початковому екрані 
+        layout = BoxLayout(orientation='vertical')
+        image = Image(source='rigths/img/start.png', size_hint=(1, 0.85))
+        layout.add_widget(image)
         button = CustomButton()
-        block1 = CustomBlock1()
-        block2 = CustomBlock2()
-        block3 = CustomBlock3()
         button.bind(on_release=self.on_button_click)
-        layout.add_widget(WelcomeScreen.player)
-        layout.add_widget(block1)
-        layout.add_widget(block2)
-        layout.add_widget(block3)
         layout.add_widget(button)
         self.add_widget(layout)
 
@@ -91,14 +72,8 @@ class WelcomeScreen(Screen):
     def on_button_click(self, instance):
         # Переходимно на готовний екран та відтворюємо музику після натискання кнопки
         self.manager.current = 'main'
-        WelcomeScreen.player.state = 'stop'
-        if not WelcomeScreen.sound:
-            WelcomeScreen.sound = SoundLoader.load('rigths/sounds/BG.mp3')  
-            if WelcomeScreen.sound:
-                WelcomeScreen.sound.loop = True 
-                WelcomeScreen.sound.volume = 0.3
-                WelcomeScreen.sound.play()
-
+        self.start.stop()
+        self.BG.play()
 
 class GameApp(App):
     title = ""
@@ -110,9 +85,9 @@ class GameApp(App):
     max_delay = 120  # Максимальна затримка перед появленням папуги
     hide_delay = 10
     parott = True
+    
 
     def build(self):
-        # self.theme_cls.theme_style = "Dark"  
         sm = ScreenManager()
         sm.add_widget(WelcomeScreen(name='welcome_screen'))  # Додаємо екран вітання перед Main
         sm.add_widget(Main(name='main'))
